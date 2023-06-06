@@ -4,21 +4,24 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'api.g.dart';
 
-@RestApi(baseUrl: "https://jsonplaceholder.typicode.com/")
+@RestApi(baseUrl: "https://henri-potier.techx.fr/")
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
-  @GET("/posts")
-  Future<List<Post>> getPosts();
+  @GET("/books")
+  Future<List<Book>> getBooks();
 }
 
 @JsonSerializable()
-class Post {
-  int id;
+class Book {
+  String isbn;
   String title;
+  int price;
+  String cover;
 
-  Post({required this.id, required this.title});
 
-  factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
-  Map<String, dynamic> toJson() => _$PostToJson(this);
+  Book({required this.isbn, required this.title, required this.price, required this.cover});
+
+  factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
+  Map<String, dynamic> toJson() => _$BookToJson(this);
 }

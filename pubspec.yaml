@@ -23,6 +23,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  retrofit_generator: ^7.0.1
+  json_serializable: ^6.7.0
+  build_runner: ^2.4.4
 
   flutter_lints: ^2.0.0
 
