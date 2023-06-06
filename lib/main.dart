@@ -2,8 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imt_a3_flutter_henry_potier/home_page.dart';
+import 'package:imt_a3_flutter_henry_potier/details_page.dart';
+import 'package:imt_a3_flutter_henry_potier/cart_page.dart';
 
-import 'api/api.dart';
 import 'cubic/books_cubit.dart';
 
 void main() {
@@ -23,7 +24,11 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: const MyHomePage(title: 'Flutter Demo Home Page'),
-        ));
+          routes: {
+              '/': (context) => const MyHomePage(title: 'Flutter Demo Home Page'),
+              '/details': (context) => const DetailsPage(title: 'Details',),
+              '/cart': (context) => const CartPage(title: "Panier"),
+            })
+    );
   }
 }

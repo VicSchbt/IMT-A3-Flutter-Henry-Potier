@@ -18,9 +18,9 @@ class Book {
   String title;
   int price;
   String cover;
+  List<String> synopsis;
 
-
-  Book({required this.isbn, required this.title, required this.price, required this.cover});
+  Book({required this.isbn, required this.title, required this.price, required this.cover, required this.synopsis});
 
   factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
   Map<String, dynamic> toJson() => _$BookToJson(this);

@@ -1,10 +1,6 @@
-// TODO extract to a separate file and class
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'api/api.dart';
 import 'cubic/books_cubit.dart';
 import 'cubic/books_state.dart';
 
@@ -41,8 +37,14 @@ class BooksPage extends StatelessWidget {
         return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
+              print("synopsis : ${data[index].synopsis.toString()}");
               return ListTile(
                 title: Text(data[index].title),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  '/details',
+                  arguments: "Hello !"
+              ),
               );
             });
       } else {
