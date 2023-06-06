@@ -22,6 +22,14 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: const Center(child: BooksPage()),
+      floatingActionButton: FloatingActionButton(
+        onPressed:  () => { Navigator.pushNamed(
+          context,
+          '/cart',
+        ) },
+        tooltip: 'Panier',
+        child: const Icon(Icons.shopping_cart_outlined)
+      ),
     );
   }
 }

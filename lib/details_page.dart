@@ -17,21 +17,22 @@ class _DetailsPageState extends State<DetailsPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body:  Center (
+      body:  const Center (
       child: Column (
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("Hello je suis le détail du livre"),
-          ElevatedButton(
-              child: const Text("Panier"),
-              onPressed: () => { Navigator.pushNamed(
-                  context,
-                  '/cart',
-              ) },
-          )
+          Text("Hello je suis le détail du livre"),
         ]
     )
   ),
+      floatingActionButton: FloatingActionButton(
+          onPressed:  () => { Navigator.pushNamed(
+            context,
+            '/cart',
+          ) },
+          tooltip: 'Panier',
+          child: const Icon(Icons.shopping_cart_outlined)
+      ),
     );
   }
 }

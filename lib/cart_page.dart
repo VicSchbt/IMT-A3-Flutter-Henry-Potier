@@ -18,7 +18,7 @@ class _CartPageState extends State<CartPage> {
         title: Text(widget.title),
       ),
       body: const Center (
-          child: Text("Hello je suis le détail du livre")
+          child: Text("Hello, voici les listes de livre dans ton panier.")
       ),
     );
   }

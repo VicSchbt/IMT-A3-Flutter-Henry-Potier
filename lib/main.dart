@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           routes: {
-              '/': (context) => const MyHomePage(title: 'Flutter Demo Home Page'),
+              '/': (context) => const MyHomePage(title: 'Henri Pottier Library'),
               '/details': (context) => const DetailsPage(title: 'Details',),
               '/cart': (context) => const CartPage(title: "Panier"),
             })
