@@ -1,16 +1,18 @@
 import '../model/shopping_cart_item.dart';
-import 'package:equatable/equatable.dart';
 
-abstract class ShoppingCartState extends Equatable {
+class ShoppingCartState {
   final List<ShoppingCartItem> items;
 
-  ShoppingCartState(this.items);
-}
+  const ShoppingCartState({this.items = const []});
 
-class ShoppingCartInitial extends ShoppingCartState {
-  ShoppingCartInitial() : super([]);
-}
+  ShoppingCartState copyWith(ShoppingCartItem item) {
+    return ShoppingCartState(items: [...items, item]);
+  }
 
-class ShoppingCartInUse extends ShoppingCartState {
-  ShoppingCartInUse() : super([]);
+  ShoppingCartState copyWithout(ShoppingCartItem item) {
+    // var tmp = [...items];
+    // tmp.remove(item);
+    return ShoppingCartState(
+        items: items.where((el) => item.book.isbn != el.book.isbn).toList());
+  }
 }
