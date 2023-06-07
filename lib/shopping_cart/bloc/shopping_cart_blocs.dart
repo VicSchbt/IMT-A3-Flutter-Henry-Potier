@@ -8,6 +8,8 @@ class ShoppingCartBloc extends Bloc<ShoppingCartEvents, ShoppingCartState> {
 
     on<RemoveFromCartEvent>(_removeFromCartEvent);
 
+    on<UpdateQtyEvent>(_updateQtyEvent);
+
     on<CheckoutEvent>(_checkoutEvent);
   }
 
@@ -18,6 +20,10 @@ class ShoppingCartBloc extends Bloc<ShoppingCartEvents, ShoppingCartState> {
   void _removeFromCartEvent(
       RemoveFromCartEvent event, Emitter<ShoppingCartState> emit) {
     emit(state.copyWithout(event.itemToRemove));
+  }
+
+  void _updateQtyEvent(UpdateQtyEvent event, Emitter<ShoppingCartState> emit) {
+    emit(state.updateQty(event.item, event.q));
   }
 
   void _checkoutEvent(CheckoutEvent event, Emitter<ShoppingCartState> emit) {

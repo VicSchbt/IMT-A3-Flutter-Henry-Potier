@@ -16,6 +16,13 @@ class RemoveFromCartEvent extends ShoppingCartEvents {
   RemoveFromCartEvent(this.itemToRemove);
 }
 
+class UpdateQtyEvent extends ShoppingCartEvents {
+  final ShoppingCartItem item;
+  final int q;
+
+  UpdateQtyEvent(this.item, this.q);
+}
+
 class CheckoutEvent extends ShoppingCartEvents {
   CheckoutEvent();
 }

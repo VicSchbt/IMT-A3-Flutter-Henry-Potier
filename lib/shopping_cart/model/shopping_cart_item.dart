@@ -1,6 +1,7 @@
 import 'package:imt_a3_flutter_henry_potier/api/api.dart';
+import 'package:equatable/equatable.dart';
 
-class ShoppingCartItem {
+class ShoppingCartItem extends Equatable {
   Book book;
   int qty;
   int totalPrice;
@@ -9,16 +10,5 @@ class ShoppingCartItem {
       {required this.book, required this.qty, required this.totalPrice});
 
   @override
-  bool operator ==(Object other) {
-    return other is Book && book.isbn == other.book.isbn;
-  }
-
-  @override
-  int get hashCode {
-    var tmp = "";
-    for (var element in book.isbn.runes) {
-      tmp += element as String;
-    }
-    return int.parse(tmp);
-  }
+  List<Object?> get props => [book.isbn];
 }
