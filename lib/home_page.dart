@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'cubic/books_cubit.dart';
-import 'cubic/books_state.dart';
+import 'cubit/books_cubit.dart';
+import 'cubit/books_state.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
