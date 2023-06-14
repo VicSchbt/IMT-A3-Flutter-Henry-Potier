@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imt_a3_flutter_henry_potier/home_page.dart';
 import 'package:imt_a3_flutter_henry_potier/details_page.dart';
 import 'package:imt_a3_flutter_henry_potier/cart_page.dart';
+import 'package:imt_a3_flutter_henry_potier/shopping_cart/bloc/shopping_cart_blocs.dart';
 
 import 'cubit/books_cubit.dart';
 import 'cubit/offers_cubit.dart';
@@ -21,8 +22,10 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => BooksCubit()),
           BlocProvider(create: (context) => OffersCubit()),
+          BlocProvider(create: (context) => ShoppingCartBloc())
         ],
         child: MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

@@ -43,12 +43,18 @@ class Book {
   String cover;
   List<String> synopsis;
 
-  Book({required this.isbn, required this.title, required this.price, required this.cover, required this.synopsis});
+  Book(
+      {required this.isbn,
+      required this.title,
+      required this.price,
+      required this.cover,
+      required this.synopsis});
 
   factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
+
+  get book => this;
   Map<String, dynamic> toJson() => _$BookToJson(this);
 }
-
 
 class Offer {
   String type;
@@ -57,3 +63,4 @@ class Offer {
 
   Offer({required this.type, required this.value, this.sliceValue});
 }
+
