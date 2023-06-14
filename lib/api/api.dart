@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -10,6 +12,27 @@ abstract class RestClient {
 
   @GET("/books")
   Future<List<Book>> getBooks();
+}
+
+class ApiClient {
+  Future<List<Offer>> getOffers(String isbns) async {
+    List<Offer> res = [];
+    Response response = await Dio().get(
+        "https://henri-potier.techx.fr/books/$isbns/commercialOffers");
+    final data = jsonDecode(response.toString());
+
+    List<dynamic> list = data['offers'];
+    for (var e in list) {
+      if(e['sliceValue'] != null) {
+        res.add(Offer(type: e['type'], value: e['value'], sliceValue: e['sliceValue']));
+      } else {
+        res.add(Offer(type: e['type'], value: e['value'], sliceValue: 0));
+      }
+    }
+
+    print("res : $res");
+    return res;
+  }
 }
 
 @JsonSerializable()
@@ -32,3 +55,12 @@ class Book {
   get book => this;
   Map<String, dynamic> toJson() => _$BookToJson(this);
 }
+
+class Offer {
+  String type;
+  int value;
+  int? sliceValue;
+
+  Offer({required this.type, required this.value, this.sliceValue});
+}
+
