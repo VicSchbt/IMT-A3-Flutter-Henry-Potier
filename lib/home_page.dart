@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:imt_a3_flutter_henry_potier/details_page.dart';
 
 import 'cubic/books_cubit.dart';
 import 'cubic/books_state.dart';
@@ -23,13 +24,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: const Center(child: BooksPage()),
       floatingActionButton: FloatingActionButton(
-        onPressed:  () => { Navigator.pushNamed(
-          context,
-          '/cart',
-        ) },
-        tooltip: 'Panier',
-        child: const Icon(Icons.shopping_cart_outlined)
-      ),
+          onPressed: () => {
+                Navigator.pushNamed(
+                  context,
+                  '/cart',
+                )
+              },
+          tooltip: 'Panier',
+          child: const Icon(Icons.shopping_cart_outlined)),
     );
   }
 }
@@ -45,15 +47,52 @@ class BooksPage extends StatelessWidget {
         return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
-              print("synopsis : ${data[index].synopsis.toString()}");
-              return ListTile(
-                title: Text(data[index].title),
-                onTap: () => Navigator.pushNamed(
-                  context,
-                  '/details',
-                  arguments: "Hello !"
-              ),
-              );
+              return GestureDetector(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            DetailsPage(title: data[index].title),
+                        settings: RouteSettings(
+                          arguments: data[index],
+                        ),
+                      )),
+                  child: Card(
+                      child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Image.network(data[index].cover,
+                                      width: MediaQuery.of(context).size.width /
+                                          4),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Text(data[index].title)),
+                                        Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child:
+                                                Text("${data[index].price}€")),
+                                        Padding(
+                                          padding: const EdgeInsets.all(10),
+                                          child: ElevatedButton(
+                                              onPressed: addToBasket,
+                                              child: const Text(
+                                                  "Ajouter au panier")),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ))));
             });
       } else {
         if (state is BooksInitial) {
@@ -63,4 +102,6 @@ class BooksPage extends StatelessWidget {
       }
     });
   }
+
+  void addToBasket() {}
 }

@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imt_a3_flutter_henry_potier/home_page.dart';
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
           ),
           routes: {
               '/': (context) => const MyHomePage(title: 'Henri Pottier Library'),
-              '/details': (context) => const DetailsPage(title: 'Details',),
+              '/details': (context) => const DetailsPage(title: 'Details'),
               '/cart': (context) => const CartPage(title: "Panier"),
             })
     );
