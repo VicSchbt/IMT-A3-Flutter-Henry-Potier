@@ -25,58 +25,14 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: const Center (
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Hello, voici la liste de livres dans ton panier."),
-              OfferWidget(),
-            ],
-          )
-      ),
-    );
-  }
-}
-
-class OfferWidget extends StatefulWidget {
-  const OfferWidget({super.key});
-
-  State<OfferWidget> createState() => _OfferWidgetState();
-
-}
-
-class _OfferWidgetState extends State<OfferWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<OffersCubit,OffersState>(builder: (context, state) {
-        if (state is OffersDownloaded) {
-          return Column(
-            children: [
-              Text('Promotion : ${state.bestType}'),
-              Text('Total : ${state.bestPrice} €')
-            ],
-          );
-        } else {
-          if (state is OffersInitial) {
-            context.read<OffersCubit>().fetchData([],50);
-          }
-           return const CircularProgressIndicator();
-        }
-    });
-  }
-
-}
     return BlocBuilder<ShoppingCartBloc, ShoppingCartState>(
         builder: (context, state) {
       var items = state.items;
 
       var totalQty = items.fold(0, (acc, cur) => acc + cur.qty);
       var totalPrice = items.fold(0, (acc, cur) => acc + cur.totalPrice);
+
+      var totalBooks = items.map((e) => e.book).toList();
 
       return Container(
         color: Colors.white,
@@ -187,25 +143,30 @@ class _OfferWidgetState extends State<OfferWidget> {
             bottomNavigationBar: totalQty > 0
                 ? BottomAppBar(
                     shape: const CircularNotchedRectangle(),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Row(
                       children: [
-                        Text(
-                          totalQty == 1
-                              ? '$totalQty article'
-                              : '$totalQty articles',
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              totalQty == 1
+                                  ? '$totalQty article'
+                                  : '$totalQty articles',
+                            ),
+                            Container(
+                              height: 1.0,
+                              width: 150.0,
+                              color: Colors.grey.withOpacity(0.6),
+                            ),
+                            Text(
+                              '$totalPrice €',
+                              style: const TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
                         ),
-                        Container(
-                          height: 1.0,
-                          width: 150.0,
-                          color: Colors.grey.withOpacity(0.6),
-                        ),
-                        Text(
-                          '$totalPrice €',
-                          style: const TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
+                        OfferWidget(books: totalBooks, totalPrice: totalPrice)
                       ],
                     ),
                   )
@@ -224,6 +185,38 @@ class _OfferWidgetState extends State<OfferWidget> {
           ),
         ),
       );
+    });
+  }
+}
+
+class OfferWidget extends StatefulWidget {
+  final int totalPrice;
+  final List<Book> books;
+
+  const OfferWidget({super.key, required this.totalPrice, required this.books});
+
+  State<OfferWidget> createState() => _OfferWidgetState();
+}
+
+class _OfferWidgetState extends State<OfferWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<OffersCubit, OffersState>(builder: (context, state) {
+      if (state is OffersDownloaded) {
+        return Column(
+          children: [
+            Text('Promotion : ${state.bestType}'),
+            Text('Total : ${state.bestPrice} €')
+          ],
+        );
+      } else {
+        if (state is OffersInitial) {
+          context
+              .read<OffersCubit>()
+              .fetchData(widget.books, widget.totalPrice.toDouble());
+        }
+        return const CircularProgressIndicator();
+      }
     });
   }
 }
