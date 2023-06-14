@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imt_a3_flutter_henry_potier/home_page.dart';
@@ -25,6 +24,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => ShoppingCartBloc())
         ],
         child: MaterialApp(
+
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: ThemeData(
