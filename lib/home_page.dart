@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imt_a3_flutter_henry_potier/details_page.dart';
+import 'package:imt_a3_flutter_henry_potier/shopping_cart/model/shopping_cart_item.dart';
 
-import 'cubic/books_cubit.dart';
-import 'cubic/books_state.dart';
+import 'api/api.dart';
+import 'cubit/books_cubit.dart';
+import 'cubit/books_state.dart';
+import 'shopping_cart/bloc/shopping_cart_blocs.dart';
+import 'shopping_cart/bloc/shopping_cart_events.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -38,6 +42,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class BooksPage extends StatelessWidget {
   const BooksPage({super.key});
+
+  void addToBasket(BuildContext context, Book book) {
+    var item = ShoppingCartItem(book: book, qty: 1, totalPrice: book.price * 1);
+    BlocProvider.of<ShoppingCartBloc>(context).add(AddToCartEvent(item));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +91,10 @@ class BooksPage extends StatelessWidget {
                                         Padding(
                                           padding: const EdgeInsets.all(10),
                                           child: ElevatedButton(
-                                              onPressed: addToBasket,
+                                              onPressed: () {
+                                                addToBasket(
+                                                    context, data[index]);
+                                              },
                                               child: const Text(
                                                   "Ajouter au panier")),
                                         ),
@@ -102,6 +114,4 @@ class BooksPage extends StatelessWidget {
       }
     });
   }
-
-  void addToBasket() {}
 }

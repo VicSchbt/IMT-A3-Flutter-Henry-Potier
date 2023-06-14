@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imt_a3_flutter_henry_potier/api/api.dart';
+
+import 'shopping_cart/bloc/shopping_cart_blocs.dart';
+import 'shopping_cart/bloc/shopping_cart_events.dart';
+import 'shopping_cart/model/shopping_cart_item.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key, required this.title});
@@ -11,6 +16,11 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
+  void addToBasket(BuildContext context, Book book) {
+    var item = ShoppingCartItem(book: book, qty: 1, totalPrice: book.price * 1);
+    BlocProvider.of<ShoppingCartBloc>(context).add(AddToCartEvent(item));
+  }
+
   @override
   Widget build(BuildContext context) {
     final book = ModalRoute.of(context)!.settings.arguments as Book;
@@ -51,7 +61,9 @@ class _DetailsPageState extends State<DetailsPage> {
                             style: const TextStyle(fontSize: 20)),
                       ),
                       ElevatedButton(
-                          onPressed: addToBasket,
+                          onPressed: () {
+                            addToBasket(context, book);
+                          },
                           child: const Text("Ajouter au panier")),
                     ],
                   )),
@@ -83,7 +95,9 @@ class _DetailsPageState extends State<DetailsPage> {
                         style: const TextStyle(fontSize: 20)),
                   ),
                   ElevatedButton(
-                      onPressed: addToBasket,
+                      onPressed: () {
+                        addToBasket(context, book);
+                      },
                       child: const Text("Ajouter au panier")),
                   const Padding(padding: EdgeInsets.only(bottom: 20)),
                 ],
@@ -102,6 +116,4 @@ class _DetailsPageState extends State<DetailsPage> {
           child: const Icon(Icons.shopping_cart_outlined)),
     );
   }
-
-  void addToBasket() {}
 }
