@@ -1,7 +1,12 @@
 # IMT-A3-Flutter-Henry-Potier
 
+Groupe 6 :
+- Martin KEYLING
+- Victoire SCHUBERT
+- Cynthia ANDRIAMPARIVONY
+
 Features : 
-* Liste des livres : Martin
-* Détail d'un livre : Martin
-* Gestion d'un panier : Victoire
-* Proposition de promotions : Cynthia
+* Liste des livres 
+* Détail d'un livre 
+* Gestion d'un panier 
+* Proposition de promotions
